@@ -17,3 +17,4 @@ MindMap Android App for SE Course Work.
 
 ### [GitHub]
 * 图形界面桌面客户端下载：https://desktop.github.com/
+* 安装成功后打开，点左上角的“+”，选择“Clone”，在Filter搜索框里搜“SoftwareEngine”，或者直接找到Fight1127栏下的该项目，再点“Clone SoftwareEngine，到自己电脑。
