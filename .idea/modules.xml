@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SoftwareEngine.iml" filepath="$PROJECT_DIR$/SoftwareEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mindmap/mindmap.iml" filepath="$PROJECT_DIR$/mindmap/mindmap.iml" />
+    </modules>
+  </component>
+</project>
