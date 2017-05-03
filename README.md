@@ -12,6 +12,7 @@ MindMap Android App for SE Course Work.
 
 ### [Git]
 * 下载Git工具（这不是GitHub，是Git，最基本的依赖工具）：https://git-scm.com/downloads
+* 下载页面选 64-bit Git for Windows Setup.
 * 安装全部下一步。
 * 生成Git SSH Key（这一步必须，否则不能提交或者Clone代码）：http://blog.csdn.net/lsyz0021/article/details/52064829
 
