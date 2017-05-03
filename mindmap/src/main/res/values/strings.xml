@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MindMap</string>
+    <string name="please_wait">请稍等…</string>
 </resources>
