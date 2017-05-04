@@ -5,6 +5,7 @@ package com.ysy.mindmap.bases;
  */
 
 public class GlobalConstant {
-    
+
+    public static final String SP_TOTAL_NAME = "sp_total_name";
     public static final String SP_UID = "sp_uid";
 }
