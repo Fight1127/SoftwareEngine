@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MindMap</string>
     <string name="please_wait">请稍等…</string>
+
+    <string name="login_user">用户名</string>
+    <string name="login_pw">密码</string>
+    <string name="login_title">O(∩_∩)O登录~</string>
+    <string name="login_register_tip">高效的头脑风暴？赶快来注册吧！</string>
 </resources>

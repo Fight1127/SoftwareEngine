@@ -10,14 +10,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".uis.main.SplashActivity">
+        <activity
+            android:name=".uis.main.SplashActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".uis.main.MainActivity"></activity>
+        <activity
+            android:name=".uis.main.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".uis.main.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatFullScreen" />
+        <activity
+            android:name=".uis.editor.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatFullScreen"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
 
 </manifest>

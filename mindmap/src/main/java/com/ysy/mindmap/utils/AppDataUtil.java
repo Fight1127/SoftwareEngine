@@ -3,11 +3,11 @@ package com.ysy.mindmap.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class CacheDataUtil {
+public class AppDataUtil {
 
     private Context context;
 
-    public CacheDataUtil(Context context) {
+    public AppDataUtil(Context context) {
         this.context = context;
     }
 
@@ -35,7 +35,7 @@ public class CacheDataUtil {
         editor.apply();
     }
 
-    public String readStrData(String key) {
+    public String readStringData(String key) {
         SharedPreferences sp = this.context.getSharedPreferences(key, Context.MODE_PRIVATE);
         return sp.getString(key, "");
     }
