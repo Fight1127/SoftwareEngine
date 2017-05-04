@@ -9,11 +9,16 @@ import com.ysy.mindmap.R;
 import com.ysy.mindmap.bases.BaseMVPActivity;
 import com.ysy.mindmap.bases.IUI;
 import com.ysy.mindmap.interfaces.IMain;
+import com.ysy.mindmap.models.datas.DataUser;
 import com.ysy.mindmap.presenters.MainPresenter;
 
 public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMain {
 
     public static void launch(Context context, long uid) {
+
+    }
+
+    public static void launch(Context context, DataUser user) {
 
     }
 

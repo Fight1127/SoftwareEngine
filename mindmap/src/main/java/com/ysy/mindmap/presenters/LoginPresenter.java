@@ -9,4 +9,7 @@ import com.ysy.mindmap.interfaces.ILogin;
 
 public class LoginPresenter extends BasePresenter<ILogin> {
 
+    public void toLogin(String username, final String pw) {
+
+    }
 }
