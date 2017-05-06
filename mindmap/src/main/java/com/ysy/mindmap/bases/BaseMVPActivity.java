@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 /**
  * MVP的Activity基类
- * Created by Sylvester on 17/4/18.
+ * Created by Sylvester on 17/4/19.
  */
 public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActivity {
 
