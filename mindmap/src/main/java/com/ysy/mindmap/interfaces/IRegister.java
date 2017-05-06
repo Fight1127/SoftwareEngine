@@ -7,5 +7,7 @@ import com.ysy.mindmap.bases.IUI;
  */
 
 public interface IRegister extends IUI {
+    void onRegisterSuccess();
 
+    void onRegisterFail(String errorMsg);
 }

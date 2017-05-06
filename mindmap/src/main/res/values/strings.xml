@@ -1,4 +1,22 @@
 <resources>
     <string name="app_name">MindMap</string>
+    <string name="app_desc">Share your mind anywhere.</string>
+    <string name="app_version">Version 1.0</string>
     <string name="please_wait">请稍等…</string>
+
+    <string name="login_user">用户名</string>
+    <string name="login_pw">密码</string>
+    <string name="login_title">登&#160;&#160;录</string>
+    <string name="login_register_tip">注册体验高效的思维导图</string>
+    <string name="login_loading">正在登录…</string>
+
+    <string name="register_username">用户名（不可更改）</string>
+    <string name="register_pw">确认密码</string>
+    <string name="register_nickname">昵称</string>
+    <string name="register_title">注&#160;&#160;册</string>
+    <string name="register_boy">Male</string>
+    <string name="register_girl">Female</string>
+    <string name="register_set_birth">点击设置生日</string>
+    <string name="register_loading">正在注册…</string>
+    <string name="register_success">注册成功</string>
 </resources>

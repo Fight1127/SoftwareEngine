@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryBG"
+    tools:context="com.ysy.mindmap.uis.main.LoginActivity">
+
+    <ImageView
+        android:id="@+id/login_logo_img"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_above="@+id/login_input_layout"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:src="@mipmap/ic_gesture_white_48dp" />
+
+    <LinearLayout
+        android:id="@+id/login_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <com.alimuzaffar.lib.widgets.AnimatedEditText
+            android:id="@+id/login_user_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="@string/login_user"
+            android:inputType="text"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/login_pw_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="@string/login_pw"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_register_tip_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/login_register_tip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/login_register_tip" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/login_register_tip_tv"
+            android:layout_alignEnd="@+id/login_register_tip_tv"
+            android:layout_alignLeft="@+id/login_register_tip_tv"
+            android:layout_alignRight="@+id/login_register_tip_tv"
+            android:layout_alignStart="@+id/login_register_tip_tv"
+            android:background="@color/colorAccentDark" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/login_register_tip_layout"
+        android:layout_alignLeft="@+id/login_register_tip_layout"
+        android:layout_alignRight="@+id/login_register_tip_layout"
+        android:layout_alignStart="@+id/login_register_tip_layout"
+        android:layout_below="@+id/login_input_layout"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/round_login_btn_bg"
+        android:text="@string/login_title" />
+
+</RelativeLayout>

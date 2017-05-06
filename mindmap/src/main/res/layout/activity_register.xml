@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryBG"
+    tools:context=".uis.editor.RegisterActivity">
+
+    <ImageView
+        android:id="@+id/register_done_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:src="@mipmap/ic_done_white_24dp" />
+
+    <ImageView
+        android:id="@+id/register_back_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:src="@mipmap/ic_arrow_back_white_24dp" />
+
+    <LinearLayout
+        android:id="@+id/register_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:text="@string/register_title"
+            android:textColor="@android:color/white"
+            android:textSize="32sp" />
+
+        <com.alimuzaffar.lib.widgets.AnimatedEditText
+            android:id="@+id/register_user_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="@string/register_username"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/register_pw_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="@string/login_pw"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/register_re_pw_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="@string/register_pw"
+            android:inputType="textPassword" />
+
+        <com.alimuzaffar.lib.widgets.AnimatedEditText
+            android:id="@+id/register_nickname_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="@string/register_nickname"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/register_birthday_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:hint="@string/register_set_birth"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/register_sex_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:hint="@string/register_girl" />
+
+            <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+                android:id="@+id/register_sex_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ball_press_color="@color/colorPrimaryDark"
+                app:ball_release_color="@color/colorPrimary"
+                app:base_press_color="@color/colorAccentDark"
+                app:base_release_color="@color/colorAccent"
+                app:icon_press="@mipmap/ic_keyboard_arrow_right_white_36dp"
+                app:icon_release="@mipmap/ic_keyboard_arrow_left_white_36dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:hint="@string/register_boy" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
