@@ -18,7 +18,7 @@
             android:id="@+id/welcome_logo_img"
             android:layout_width="192dp"
             android:layout_height="192dp"
-            android:src="@mipmap/ic_gesture_white_48dp" />
+            android:src="@drawable/global_logo" />
 
         <TextView
             android:id="@+id/welcome_textView"

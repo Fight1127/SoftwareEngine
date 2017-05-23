@@ -14,7 +14,7 @@
         android:layout_above="@+id/login_input_layout"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:src="@mipmap/ic_gesture_white_48dp" />
+        android:src="@drawable/global_logo" />
 
     <LinearLayout
         android:id="@+id/login_input_layout"

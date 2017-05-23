@@ -86,7 +86,8 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter> implements IL
 
     private void toLogin(String username, String pw) {
         mWaitingDialog = new DialogUtil(this).showWaitDialog(getString(R.string.login_loading));
-        getPresenter().toLogin(username, pw);
+        MainActivity.launch(this, 1);
+//        getPresenter().toLogin(username, pw);
     }
 
     @Override

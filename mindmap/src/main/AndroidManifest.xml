@@ -22,10 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".uis.main.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".uis.main.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -35,6 +31,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatFullScreen"
             android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".uis.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
