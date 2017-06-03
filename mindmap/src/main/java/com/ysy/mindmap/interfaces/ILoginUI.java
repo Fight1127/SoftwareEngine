@@ -7,7 +7,7 @@ import com.ysy.mindmap.models.datas.DataUser;
  * Created by Sylvester on 17/5/3.
  */
 
-public interface ILogin extends IUI {
+public interface ILoginUI extends IUI {
     void onLoginSuccess(DataUser user);
 
     void onLoginFail(String errorMsg);

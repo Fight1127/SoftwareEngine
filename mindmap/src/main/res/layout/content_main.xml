@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,106 @@
     tools:context="com.ysy.mindmap.uis.main.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-</android.support.constraint.ConstraintLayout>
+    <com.ysy.mindmap.uis.mindmap.MindMapView
+        android:id="@+id/mindMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/content_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/action_scrollView"
+        android:gravity="start"
+        android:inputType="none"
+        android:maxLines="1"
+        android:visibility="invisible" />
+
+    <HorizontalScrollView
+        android:id="@+id/action_scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="6dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/action_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/round_tool_item_bg"
+                android:clickable="true"
+                android:onClick="onEditClicked"
+                android:padding="8dp"
+                android:text="编辑内容"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/round_tool_item_bg"
+                android:clickable="true"
+                android:onClick="onEditClicked"
+                android:padding="8dp"
+                android:text="同步历史"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/round_tool_item_bg"
+                android:clickable="true"
+                android:onClick="onAddChildClicked"
+                android:padding="8dp"
+                android:text="添加子系"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/round_tool_item_bg"
+                android:clickable="true"
+                android:onClick="onAddSiblingClicked"
+                android:padding="8dp"
+                android:text="添加同系"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/round_tool_item_bg"
+                android:clickable="true"
+                android:onClick="onDeleteSelectedClicked"
+                android:padding="8dp"
+                android:text="删除单叶"
+                android:textColor="@android:color/holo_red_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/round_tool_item_bg"
+                android:clickable="true"
+                android:onClick="onDeleteBranchClicked"
+                android:padding="8dp"
+                android:text="删除整枝"
+                android:textColor="@android:color/holo_red_light" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</RelativeLayout>

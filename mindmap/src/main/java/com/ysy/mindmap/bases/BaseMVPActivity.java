@@ -2,6 +2,8 @@ package com.ysy.mindmap.bases;
 
 import android.os.Bundle;
 
+import com.ysy.mindmap.utils.dbconnector.SQLClient;
+
 /**
  * MVP的Activity基类
  * Created by Sylvester on 17/4/18.
@@ -86,6 +88,9 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SQLClient.cancelBlockingRequest(getActivity());
+        SQLClient.cancelAllRequest(getActivity());
+        SQLClient.cancelAllRequest();
         getPresenter().onUIDestroy();
     }
 

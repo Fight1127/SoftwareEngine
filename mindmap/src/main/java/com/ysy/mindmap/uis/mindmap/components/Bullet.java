@@ -28,7 +28,7 @@ public class Bullet implements Observer {
     private Bullet parent;
 
     //Different rendering properties.
-    private MindMapItem _wrappedContent;
+    private MindMapItem wrappedContent;
     private StyleScheme currentStyleScheme;
     private StyleScheme normalStyleScheme;
     private StyleScheme ghostStyleScheme;
@@ -521,15 +521,15 @@ public class Bullet implements Observer {
     }
 
     public MindMapItem getWrappedContent() {
-        return _wrappedContent;
+        return wrappedContent;
     }
 
     public void setWrappedContent(MindMapItem wrappedContent) {
-        if (_wrappedContent != null) {
-            _wrappedContent.deleteObserver(this);
+        if (this.wrappedContent != null) {
+            this.wrappedContent.deleteObserver(this);
         }
         wrappedContent.addObserver(this);
-        this._wrappedContent = wrappedContent;
+        this.wrappedContent = wrappedContent;
     }
 
     private void clearCachedPaths() {

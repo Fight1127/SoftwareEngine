@@ -13,10 +13,10 @@ public class RegisterErrorConstant {
     public static int ERROR_REPW_NOT_SAME = 4;
     public static int ERROR_NICKNAME_EMPTY = 5;
     public static int ERROR_BIRTHDAY_EMPTY = 6;
-    public static int ERROR_USERNAME_MORE_32 = 7;
-    public static int ERROR_PW_MORE_24 = 8;
-    public static int ERROR_NICKNAME_MORE_32 = 9;
-    public static int ERROR_NICKNAME_MORE_CHN_16 = 10;
+    public static int ERROR_USERNAME_MORE_24 = 7;
+    public static int ERROR_PW_MORE_32 = 8;
+    public static int ERROR_NICKNAME_MORE_24 = 9;
+    public static int ERROR_NICKNAME_MORE_CHN_12 = 10;
 
     public static String getErrorMsg(int errorCode) {
         String msg = null;
@@ -46,7 +46,7 @@ public class RegisterErrorConstant {
                 msg = "用户名不能超过24个字符哦";
                 break;
             case 8:
-                msg = "密码不能超过24个字符哦";
+                msg = "密码不能超过32个字符哦";
                 break;
             case 9:
                 msg = "昵称不能超过24个字符哦";

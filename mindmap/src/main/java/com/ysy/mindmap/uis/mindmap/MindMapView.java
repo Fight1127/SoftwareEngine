@@ -29,15 +29,28 @@ public class MindMapView extends ZoomView {
     private PointF moveBulletInitPosition;
     private Bullet hoveredItem;
 
-    //Listeners
     private OnSelectedBulletChangeListener selectedBulletChangeListener;
     private MindMapItemActionRequestListener mindMapActionListener;
     private BulletManager bulletManager;
     private boolean isRootPositionInitialized;
 
+    private void generateMap() {
+        mindMapRoot =
+                new MindMapItem("计算机科学",
+                        new MindMapItem("基础理论",
+                                new MindMapItem("高等数学"),
+                                new MindMapItem("大学物理")),
+                        new MindMapItem("专业知识",
+                                new MindMapItem("数据结构"),
+                                new MindMapItem("编译原理")),
+                        new MindMapItem("研究方向",
+                                new MindMapItem("移动互联"),
+                                new MindMapItem("人工智能"))
+                );
+    }
+
     public MindMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         generateMap();
 
         Bullet rootBullet = getBulletManager().getOrCreateBullet(mindMapRoot);
@@ -72,7 +85,7 @@ public class MindMapView extends ZoomView {
 
         getBulletRoot().updateLayout();
 
-        handleMovementAnimations(2000);
+        handleMovementAnimations(1000);
         renderItemWithChildren(canvas, getBulletRoot());
 
         Bullet moveBullet = getMoveBullet();
@@ -84,7 +97,7 @@ public class MindMapView extends ZoomView {
     }
 
     private void handleMovementAnimations(int animationTime) {
-        List<ValueAnimator> allAnimators = new ArrayList<ValueAnimator>();
+        List<ValueAnimator> allAnimators = new ArrayList<>();
         getBulletRoot().populateMovementAnimators(allAnimators, animationTime);
         if (allAnimators.size() > 0) {
             allAnimators.get(0).addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -239,19 +252,6 @@ public class MindMapView extends ZoomView {
 
     protected void setBulletRoot(Bullet bulletRoot) {
         getBulletManager().setRootBullet(bulletRoot);
-    }
-
-    private void generateMap() {
-        mindMapRoot = new MindMapItem("Main",
-                new MindMapItem("1",
-                        new MindMapItem("1.1"),
-                        new MindMapItem("1.2")),
-                new MindMapItem("WTF",
-                        new MindMapItem("This is pretty bloody genious"),
-                        new MindMapItem("Yeah, damn right!")),
-                new MindMapItem("2",
-                        new MindMapItem("2.1"),
-                        new MindMapItem("2.2")));
     }
 
     public MindMapItem getSelectedMindMapItem() {

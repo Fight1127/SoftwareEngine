@@ -14,7 +14,7 @@
         android:layout_above="@+id/login_input_layout"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:src="@drawable/global_logo" />
+        android:src="@drawable/global_logo_white" />
 
     <LinearLayout
         android:id="@+id/login_input_layout"

@@ -18,7 +18,7 @@
             android:id="@+id/welcome_logo_img"
             android:layout_width="192dp"
             android:layout_height="192dp"
-            android:src="@drawable/global_logo" />
+            android:src="@drawable/global_logo_white" />
 
         <TextView
             android:id="@+id/welcome_textView"

@@ -13,7 +13,7 @@ import com.ysy.mindmap.R;
 import com.ysy.mindmap.bases.BaseMVPActivity;
 import com.ysy.mindmap.bases.GlobalConstant;
 import com.ysy.mindmap.bases.IUI;
-import com.ysy.mindmap.interfaces.ILogin;
+import com.ysy.mindmap.interfaces.ILoginUI;
 import com.ysy.mindmap.models.datas.DataUser;
 import com.ysy.mindmap.models.listeners.NoDoubleViewClickListener;
 import com.ysy.mindmap.presenters.LoginPresenter;
@@ -26,7 +26,7 @@ import com.ysy.mindmap.utils.ToastUtil;
  * Created by Sylvester on 17/5/4.
  */
 
-public class LoginActivity extends BaseMVPActivity<LoginPresenter> implements ILogin {
+public class LoginActivity extends BaseMVPActivity<LoginPresenter> implements ILoginUI {
 
     private Button mLoginBtn;
     private View mRegisterTv;
@@ -86,8 +86,11 @@ public class LoginActivity extends BaseMVPActivity<LoginPresenter> implements IL
 
     private void toLogin(String username, String pw) {
         mWaitingDialog = new DialogUtil(this).showWaitDialog(getString(R.string.login_loading));
-        MainActivity.launch(this, 1);
-//        getPresenter().toLogin(username, pw);
+        getPresenter().toLogin(username, pw);
+
+        // test
+//        MainActivity.launch(this, 1);
+//        finish();
     }
 
     @Override

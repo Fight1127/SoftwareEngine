@@ -16,7 +16,6 @@ public class MindMapItem extends SuspendableObservable {
 
     public MindMapItem(String title, MindMapItem... mindMapItems) {
         children = new ArrayList<>();
-
         setText(title);
         if (mindMapItems != null) {
             for (MindMapItem item : mindMapItems) {

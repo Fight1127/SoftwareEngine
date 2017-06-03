@@ -12,11 +12,10 @@ public class DataUser extends BaseData {
     private String pw;
     private String username;
     private byte sex;
-    private String birthday;
-    private String avatarUrl;
+    private String avatar;
     private String nickname;
     private String intro;
-    private boolean isMsgRead;
+    private String teams;
     private String createTime;
     private String updateTime;
 
@@ -44,12 +43,8 @@ public class DataUser extends BaseData {
         this.sex = sex;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setNickname(String nickname) {
@@ -60,8 +55,8 @@ public class DataUser extends BaseData {
         this.intro = intro;
     }
 
-    public void setMsgRead(boolean msgRead) {
-        isMsgRead = msgRead;
+    public void setTeams(String teams) {
+        this.teams = teams;
     }
 
     public void setCreateTime(String createTime) {
@@ -80,24 +75,20 @@ public class DataUser extends BaseData {
         return username;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
     public String getNickname() {
         return nickname;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getAvatar() {
+        return avatar;
     }
 
     public String getIntro() {
         return intro;
     }
 
-    public boolean isMsgRead() {
-        return isMsgRead;
+    public String getTeams() {
+        return teams;
     }
 
     public String getCreateTime() {

@@ -22,9 +22,9 @@ class StyleScheme {
     public static final String ATTRIBUTE_EXTERNAL_PADDING_HEIGHT = "externalpadding.height";
     public static final String ATTRIBUTE_EXTERNAL_PADDING_WIDTH = "externalpadding.width";
     public static final String ATTRIBUTE_EXTERNAL_PADDING = "externalpadding";
-    public static final Integer ATTRIBUTE_DEFAULT_FORE_COLOR = Color.BLUE;
-    public static final Integer ATTRIBUTE_DEFAULT_BACKGROUND_COLOR = Color.GRAY;
-    public static final Integer ATTRIBUTE_DEFAULT_BACKGROUND_HIGHLIGHTED_COLOR = Color.MAGENTA;
+    public static final Integer ATTRIBUTE_DEFAULT_FORE_COLOR = Color.BLACK;
+    public static final Integer ATTRIBUTE_DEFAULT_BACKGROUND_COLOR = Color.LTGRAY;
+    public static final Integer ATTRIBUTE_DEFAULT_BACKGROUND_HIGHLIGHTED_COLOR = Color.YELLOW;
 
     //Color Keys
     public static final String ATTRIBUTE_FORE_COLOR = "color.fore";

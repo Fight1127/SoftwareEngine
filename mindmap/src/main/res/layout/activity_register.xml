@@ -82,15 +82,15 @@
             android:hint="@string/register_nickname"
             android:inputType="text" />
 
-        <TextView
-            android:id="@+id/register_birthday_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:hint="@string/register_set_birth"
-            android:textSize="18sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/register_birthday_tv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:gravity="center"-->
+            <!--android:hint="@string/register_set_birth"-->
+            <!--android:textSize="18sp" />-->
 
         <LinearLayout
             android:id="@+id/register_sex_layout"

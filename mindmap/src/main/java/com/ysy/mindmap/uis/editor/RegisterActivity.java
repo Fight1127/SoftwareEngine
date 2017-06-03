@@ -15,7 +15,7 @@ import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 import com.ysy.mindmap.R;
 import com.ysy.mindmap.bases.BaseMVPActivity;
 import com.ysy.mindmap.bases.IUI;
-import com.ysy.mindmap.interfaces.IRegister;
+import com.ysy.mindmap.interfaces.IRegisterUI;
 import com.ysy.mindmap.models.datas.DataUser;
 import com.ysy.mindmap.models.listeners.NoDoubleViewClickListener;
 import com.ysy.mindmap.presenters.RegisterPresenter;
@@ -26,7 +26,7 @@ import com.ysy.mindmap.utils.ToastUtil;
  * Created by Sylvester on 17/5/4.
  */
 
-public class RegisterActivity extends BaseMVPActivity<RegisterPresenter> implements IRegister {
+public class RegisterActivity extends BaseMVPActivity<RegisterPresenter> implements IRegisterUI {
 
     private MaterialAnimatedSwitch mSexSwitch;
     private View mBackImg;
@@ -35,7 +35,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter> impleme
     private EditText mPwEdt;
     private EditText mRePwEdt;
     private EditText mNicknameEdt;
-    private TextView mSetBirthdayTv;
+//    private TextView mSetBirthdayTv;
     private Dialog mWaitingDialog;
 
     private byte sex = 0;
@@ -78,7 +78,7 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter> impleme
         mPwEdt = (EditText) findViewById(R.id.register_pw_edt);
         mRePwEdt = (EditText) findViewById(R.id.register_re_pw_edt);
         mNicknameEdt = (EditText) findViewById(R.id.register_nickname_edt);
-        mSetBirthdayTv = (TextView) findViewById(R.id.register_birthday_tv);
+//        mSetBirthdayTv = (TextView) findViewById(R.id.register_birthday_tv);
     }
 
     private void setListeners() {
@@ -103,12 +103,12 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter> impleme
             }
         });
 
-        mSetBirthdayTv.setOnClickListener(new NoDoubleViewClickListener() {
-            @Override
-            protected void onNoDoubleClick(View v) {
-                openCalendar();
-            }
-        });
+//        mSetBirthdayTv.setOnClickListener(new NoDoubleViewClickListener() {
+//            @Override
+//            protected void onNoDoubleClick(View v) {
+//                openCalendar();
+//            }
+//        });
     }
 
     private void toRegister() {
@@ -116,21 +116,19 @@ public class RegisterActivity extends BaseMVPActivity<RegisterPresenter> impleme
         DataUser newUser = new DataUser();
         newUser.setUsername(mUsernameEdt.getText().toString());
         newUser.setPw(mPwEdt.getText().toString());
-        newUser.setBirthday(mSetBirthdayTv.getText().toString());
         newUser.setSex(sex);
-        newUser.setMsgRead(true);
         newUser.setNickname(mNicknameEdt.getText().toString());
         getPresenter().toRegister(newUser, mRePwEdt.getText().toString());
     }
 
-    private void openCalendar() {
-        new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mSetBirthdayTv.setText(formatDate(year + "-" + (month + 1) + "-" + dayOfMonth));
-            }
-        }, year, month - 1, day).show();
-    }
+//    private void openCalendar() {
+//        new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                mSetBirthdayTv.setText(formatDate(year + "-" + (month + 1) + "-" + dayOfMonth));
+//            }
+//        }, year, month - 1, day).show();
+//    }
 
     private String formatDate(String date) {
         String[] yMd = date.split("-");
