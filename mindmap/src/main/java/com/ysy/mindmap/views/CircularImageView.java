@@ -1,4 +1,4 @@
-package com.ysy.mindmap.utils;
+package com.ysy.mindmap.views;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

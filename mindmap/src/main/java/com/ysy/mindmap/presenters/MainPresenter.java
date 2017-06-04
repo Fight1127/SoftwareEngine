@@ -51,4 +51,48 @@ public class MainPresenter extends BasePresenter<IMainUI> {
             }
         });
     }
+
+    public void commitMinMapToTeam(long tmid, String mapname, String mapJson) {
+        SQLEntity<String> entity = new SQLEntity<>();
+        entity.setSQL("update team_map set data = '" + mapJson + "', mapname = '" + mapname + "', update_time = now() " +
+                "where tmid = " + tmid);
+        entity.setType(SQLRequest.RequestType.UPDATE);
+        SQLClient.invokeStringRequest(getUI().getActivity(), entity, new SQLCallback<ResultSet>() {
+            @Override
+            public void onSuccess(ResultSet res) {
+                getUI().onCommitMindMapFinished("提交成功");
+            }
+
+            @Override
+            public void onFail(int errorCode) {
+                getUI().onCommitMindMapFinished(SQLErrorConstant.getErrorMsg(errorCode));
+            }
+        });
+    }
+
+    public void pullMinMapFromTeam(long tmid) {
+        SQLEntity<String> entity = new SQLEntity<>();
+        entity.setSQL("select data from team_map where tmid = " + tmid);
+        entity.setType(SQLRequest.RequestType.SELECT);
+        SQLClient.invokeStringRequest(getUI().getActivity(), entity, new SQLCallback<ResultSet>() {
+            @Override
+            public void onSuccess(ResultSet res) {
+                try {
+                    String mapJson = null;
+                    while (res.next()) {
+                        mapJson = res.getString(1);
+                    }
+                    getUI().onPullMindMapSuccess(mapJson);
+                } catch (SQLException e) {
+                    getUI().onPullMindMapFail(SQLErrorConstant.getErrorMsg(SQLErrorConstant.ERROR_SYSTEM));
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(int errorCode) {
+                getUI().onPullMindMapFail(SQLErrorConstant.getErrorMsg(errorCode));
+            }
+        });
+    }
 }

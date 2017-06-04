@@ -12,4 +12,10 @@ public interface IMainUI extends IUI {
     void onQueryUserSuccess(DataUser user);
 
     void onQueryUserFail(String errorMsg);
+
+    void onCommitMindMapFinished(String msg);
+
+    void onPullMindMapSuccess(String json);
+
+    void onPullMindMapFail(String errorMsg);
 }

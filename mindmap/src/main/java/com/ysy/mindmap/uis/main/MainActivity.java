@@ -30,6 +30,7 @@ import com.ysy.mindmap.bases.GlobalConstant;
 import com.ysy.mindmap.bases.IUI;
 import com.ysy.mindmap.interfaces.IMainUI;
 import com.ysy.mindmap.models.MindMapItem;
+import com.ysy.mindmap.models.datas.DataTeamMindMap;
 import com.ysy.mindmap.models.datas.DataUser;
 import com.ysy.mindmap.presenters.MainPresenter;
 import com.ysy.mindmap.uis.manage.TeamManageActivity;
@@ -43,8 +44,7 @@ import com.ysy.mindmap.utils.AppDataUtil;
 import com.ysy.mindmap.utils.JsonUtil;
 import com.ysy.mindmap.utils.ToastUtil;
 
-public class MainActivity extends BaseMVPActivity<MainPresenter>
-        implements IMainUI, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMainUI, NavigationView.OnNavigationItemSelectedListener {
 
     private static final String MAIN_USER = "main_user";
     private static final String MAIN_UID = "main_uid";
@@ -61,6 +61,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
     private DataUser user = null;
     private long uid = -1;
 
+    private long teamMapId = -1;
+    private String mapJson;
+
     private MindMapItem rootItem;
     private Handler mHandler;
     private Runnable mInitMapRunnable = new Runnable() {
@@ -76,6 +79,13 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         @Override
         public void run() {
             new ToastUtil(MainActivity.this).showToastShort("成功保存到本地");
+        }
+    };
+
+    private Runnable mCommitRunnable = new Runnable() {
+        @Override
+        public void run() {
+            commitMindMapToTeam();
         }
     };
 
@@ -107,6 +117,29 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        DataTeamMindMap teamMindMap = (DataTeamMindMap) intent.getSerializableExtra("mind_map");
+        if (teamMindMap != null) {
+            mapJson = teamMindMap.getData();
+            if (!TextUtils.isEmpty(mapJson)) {
+                teamMapId = teamMindMap.getTmid();
+                AppDataUtil aDU = new AppDataUtil(this);
+                aDU.saveData(GlobalConstant.SP_SAVE_MAP_ID_PREF + (uid + ""), teamMapId);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rootItem = JsonUtil.jsonToMindMap(mapJson);
+                        mHandler.post(mInitMapRunnable);
+                    }
+                }).start();
+            }
+        }
+        super.onNewIntent(intent);
+    }
+
+    @Override
     protected void onCreateExecute(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         mHandler = new Handler();
@@ -116,7 +149,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
 
     private void initMapFromSP(long uid) {
         AppDataUtil aDU = new AppDataUtil(this);
-        final String mapJson = aDU.readStringData(GlobalConstant.SP_SAVE_MAP_PREF + (uid + ""), getString(R.string.map_json));
+        mapJson = aDU.readStringData(GlobalConstant.SP_SAVE_MAP_PREF + (uid + ""), getString(R.string.map_json));
+        teamMapId = aDU.readLongData(GlobalConstant.SP_SAVE_MAP_ID_PREF + (uid) + "");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -209,10 +243,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         });
     }
 
-    public void refreshView(View view) {
-        mindMapView.invalidate();
-    }
-
     public void onEditClicked(View v) {
         if (mindMapView.getSelectedMindMapItem() != null) {
             currentEditMode = MindMapEditMode.EDIT;
@@ -224,6 +254,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
 
     public void onAddSiblingClicked(View v) {
         if (mindMapView.getSelectedMindMapItem() != null) {
+            if (mindMapView.getSelectedMindMapItem().getParent() == null) {
+                new ToastUtil(MainActivity.this).showToastShort("根节点不能添加同系");
+                return;
+            }
             currentEditMode = MindMapEditMode.ADD_SIBLING;
             mContentEdt.setText("");
             mContentEdt.setVisibility(View.VISIBLE);
@@ -279,23 +313,40 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mindMapView != null) {
-                        AppDataUtil aDU = new AppDataUtil(MainActivity.this);
-                        aDU.saveData(GlobalConstant.SP_SAVE_MAP_PREF + (uid + ""),
-                                JsonUtil.mindMapToJson(mindMapView.getMindMapRoot()));
-                        mHandler.post(mSaveSuccessRunnable);
+            if (teamMapId == -1) {
+                new ToastUtil(this).showToastLong("当前导图为体验预览图，请先拉取或从“我的导图”选取后再保存");
+            } else {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mindMapView != null) {
+                            AppDataUtil aDU = new AppDataUtil(MainActivity.this);
+                            aDU.saveData(GlobalConstant.SP_SAVE_MAP_PREF + (uid + ""),
+                                    JsonUtil.mindMapToJson(mindMapView.getMindMapRoot()));
+                            aDU.saveData(GlobalConstant.SP_SAVE_MAP_ID_PREF + (uid + ""), teamMapId);
+                            mHandler.post(mSaveSuccessRunnable);
+                        }
                     }
-                }
-            }).start();
-
+                }).start();
+            }
             return true;
         } else if (id == R.id.action_commit) {
-
+            if (teamMapId != -1 && rootItem != null) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mapJson = JsonUtil.mindMapToJson(rootItem);
+                        mHandler.post(mCommitRunnable);
+                    }
+                }).start();
+            } else {
+                new ToastUtil(this).showToastLong("请先拉取或从“我的导图”选取后再提交");
+            }
         } else if (id == R.id.action_pull) {
-
+            if (teamMapId != -1)
+                getPresenter().pullMinMapFromTeam(teamMapId);
+            else
+                new ToastUtil(this).showToastLong("请先从“我的导图”选取后再拉取");
         }
 
         return super.onOptionsItemSelected(item);
@@ -345,6 +396,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         public void afterTextChanged(Editable s) {
             if (currentEditMode == MindMapEditMode.EDIT) {
                 String newText = mContentEdt.getText().toString();
+                if (TextUtils.isEmpty(newText)) {
+                    new ToastUtil(MainActivity.this).showToastShort("不能为空哦");
+                    return;
+                }
                 mindMapView.getSelectedMindMapItem().setText(newText);
                 mindMapView.invalidate();
             }
@@ -355,6 +410,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         public void onSelectedBulletChanged(View v, Bullet selectedBullet) {
             if (selectedBullet != null) {
                 mActionLayout.setVisibility(View.VISIBLE);
+                mContentEdt.setVisibility(View.INVISIBLE);
             } else {
                 mActionLayout.setVisibility(View.INVISIBLE);
                 mContentEdt.setVisibility(View.INVISIBLE);
@@ -396,5 +452,34 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
     @Override
     public void onQueryUserFail(String errorMsg) {
         new ToastUtil(this).showToastShort(errorMsg);
+    }
+
+    @Override
+    public void onCommitMindMapFinished(String msg) {
+        new ToastUtil(this).showToastShort(msg);
+    }
+
+    @Override
+    public void onPullMindMapSuccess(final String json) {
+        if (!TextUtils.isEmpty(json)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+//                    rootItem = JsonUtil.jsonToMindMap(json);
+
+                    mHandler.post(mInitMapRunnable);
+                }
+            }).start();
+        }
+        new ToastUtil(this).showToastLong("拉取成功");
+    }
+
+    @Override
+    public void onPullMindMapFail(String errorMsg) {
+        new ToastUtil(this).showToastShort(errorMsg);
+    }
+
+    private void commitMindMapToTeam() {
+        getPresenter().commitMinMapToTeam(teamMapId, rootItem.getText(), mapJson);
     }
 }

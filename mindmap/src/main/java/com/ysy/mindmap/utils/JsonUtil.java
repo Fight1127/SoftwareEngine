@@ -25,6 +25,7 @@ public class JsonUtil {
         return new MindMapItem(rootTitle, createItemList(rootArr));
     }
 
+    // 多叉树递归
     private static List<MindMapItem> createItemList(JsonArray array) {
         List<MindMapItem> itemList = new ArrayList<>();
         for (int j = 0; j < array.size(); j++) {
@@ -46,6 +47,7 @@ public class JsonUtil {
         return rootObj.toString();
     }
 
+    // 多叉树递归
     private static JsonArray getRootArray(List<MindMapItem> children) {
         JsonArray array = new JsonArray();
         for (int i = 0; i < children.size(); i++) {
@@ -58,4 +60,6 @@ public class JsonUtil {
         }
         return array;
     }
+
+
 }

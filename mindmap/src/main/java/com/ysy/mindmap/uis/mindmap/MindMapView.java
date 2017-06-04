@@ -130,7 +130,6 @@ public class MindMapView extends ZoomView {
         itemToRender.renderThisItem(canvasToRenderOn);
         itemToRender.renderChildConnections(canvasToRenderOn);
         for (Bullet child : itemToRender.getChildren()) {
-
             renderItemWithChildren(canvasToRenderOn, child);
         }
     }
@@ -143,10 +142,8 @@ public class MindMapView extends ZoomView {
     @Override
     public void onClickEvent(MotionEvent event) {
         PointF transformedPoint = getAsAbsoluteCoordinate(event.getRawX(), event.getRawY());
-
         Bullet foundBullet = getBulletAtCoordinate(getBulletRoot(), transformedPoint);
-        if (foundBullet != null
-                && foundBullet.getWrappedContent() != getSelectedMindMapItem()) {
+        if (foundBullet != null && foundBullet.getWrappedContent() != getSelectedMindMapItem()) {
             setSelectedBullet(foundBullet);
         } else {
             setSelectedBullet(null);

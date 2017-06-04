@@ -36,6 +36,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".uis.main.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -28,6 +28,8 @@
 	<string name="user_map_manage_title">我的导图</string>
 	<string name="team_manage_title">我的团队</string>
 
+	<string name="content_loading">加载中…</string>
+
     <string name="map_json">
 		{
 			"title": "计算机科学",

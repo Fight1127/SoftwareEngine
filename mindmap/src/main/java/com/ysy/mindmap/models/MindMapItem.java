@@ -14,6 +14,7 @@ public class MindMapItem extends SuspendableObservable {
     private MindMapItem parent;
     private String text;
     private List<MindMapItem> children;
+    private String history;
 
     public MindMapItem(String title, MindMapItem... mindMapItems) {
         children = new ArrayList<>();
