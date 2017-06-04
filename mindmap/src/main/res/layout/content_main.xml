@@ -17,28 +17,27 @@
         android:id="@+id/content_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/action_scrollView"
+        android:layout_above="@+id/action_layout"
         android:gravity="start"
         android:inputType="none"
         android:maxLines="1"
         android:visibility="invisible" />
 
     <HorizontalScrollView
-        android:id="@+id/action_scrollView"
+        android:id="@+id/action_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="6dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="invisible">
 
         <LinearLayout
-            android:id="@+id/action_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="invisible">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"

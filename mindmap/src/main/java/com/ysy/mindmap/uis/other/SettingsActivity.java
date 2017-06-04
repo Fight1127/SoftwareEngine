@@ -1,4 +1,4 @@
-package com.ysy.mindmap.uis.setting;
+package com.ysy.mindmap.uis.other;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -2,6 +2,7 @@ package com.ysy.mindmap.models;
 
 import com.ysy.mindmap.utils.SuspendableObservable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,22 @@ public class MindMapItem extends SuspendableObservable {
                 children.add(item);
             }
         }
+    }
+
+    public MindMapItem(String title, List<MindMapItem> mindMapItems) {
+        children = new ArrayList<>();
+        setText(title);
+        if (mindMapItems != null) {
+            for (MindMapItem item : mindMapItems) {
+                item.setParent(this);
+                children.add(item);
+            }
+        }
+    }
+
+    public MindMapItem(String title) {
+        children = new ArrayList<>();
+        setText(title);
     }
 
     public MindMapItem getParent() {
@@ -105,7 +122,6 @@ public class MindMapItem extends SuspendableObservable {
 
     public void setText(String text) {
         this.text = text;
-
         setChangeAndNotifyObservers(UPDATED_TEXT);
     }
 

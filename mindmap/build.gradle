@@ -35,4 +35,5 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
     compile files('libs/mysql-connector-java-5.1.36-bin.jar')
+    compile 'com.google.code.gson:gson:2.8.1'
 }

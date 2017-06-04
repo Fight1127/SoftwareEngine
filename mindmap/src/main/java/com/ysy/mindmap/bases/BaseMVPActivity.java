@@ -1,6 +1,7 @@
 package com.ysy.mindmap.bases;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 
 import com.ysy.mindmap.utils.dbconnector.SQLClient;
 
@@ -17,6 +18,14 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
 
     protected void beforeSetContentView() {
 
+    }
+
+    protected void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

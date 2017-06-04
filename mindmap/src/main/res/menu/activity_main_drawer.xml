@@ -3,23 +3,36 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_draw_board"
             android:checked="true"
             android:icon="@drawable/ic_menu_camera"
             android:title="导图画板" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="我的导图" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="我的团队" />
+        <!--<item-->
+            <!--android:id="@+id/nav_gallery"-->
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+            <!--android:title="我的导图" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_slideshow"-->
+            <!--android:icon="@drawable/ic_menu_slideshow"-->
+            <!--android:title="我的团队" />-->
         <!--<item-->
         <!--android:id="@+id/nav_manage"-->
         <!--android:icon="@drawable/ic_menu_manage"-->
         <!--android:title="Tools" />-->
     </group>
+
+    <item android:title="管理">
+        <menu>
+            <item
+                android:id="@+id/nav_user_map"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="@string/user_map_manage_title" />
+            <item
+                android:id="@+id/nav_team_manage"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="@string/team_manage_title" />
+        </menu>
+    </item>
 
     <item android:title="其它">
         <menu>
@@ -28,9 +41,13 @@
             <!--android:icon="@drawable/ic_menu_share"-->
             <!--android:title="Share" />-->
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_share"
                 android:title="系统设置" />
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_menu_send"
+                android:title="退出登录" />
         </menu>
     </item>
 

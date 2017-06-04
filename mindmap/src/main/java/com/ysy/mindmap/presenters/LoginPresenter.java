@@ -40,6 +40,7 @@ public class LoginPresenter extends BasePresenter<ILoginUI> {
                 public void onSuccess(ResultSet res) {
                     DataUser user = new DataUser();
                     try {
+                        int loop = 0;
                         while (res.next()) {
                             if (res.getString(1).equals(pw)) {
                                 user.setUid(res.getLong(2));
@@ -53,7 +54,10 @@ public class LoginPresenter extends BasePresenter<ILoginUI> {
                                 getUI().onLoginSuccess(user);
                             } else
                                 getUI().onLoginFail("密码错啦，再想想哦");
+                            ++loop;
                         }
+                        if (loop == 0)
+                            getUI().onLoginFail(SQLErrorConstant.getErrorMsg(SQLErrorConstant.ERROR_USER_NOT_EXIST));
                     } catch (SQLException e) {
                         e.printStackTrace();
                         getUI().onLoginFail(SQLErrorConstant.getErrorMsg(SQLErrorConstant.ERROR_SYSTEM));

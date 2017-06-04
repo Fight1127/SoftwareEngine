@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">曼德阿普</string>
+    <string name="app_name">曼德麦普</string>
     <string name="app_desc">Share your mind anywhere.</string>
     <string name="app_version">Version 1.0</string>
     <string name="please_wait">请稍等…</string>
@@ -24,4 +24,64 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+	<string name="user_map_manage_title">我的导图</string>
+	<string name="team_manage_title">我的团队</string>
+
+    <string name="map_json">
+		{
+			"title": "计算机科学",
+			"data": [
+				{
+					"title": "基础知识",
+					"data": [
+						{
+							"title": "高等数学",
+							"data":[
+								{
+									"title": "第一章"
+								}
+							]
+						},
+						{
+							"title": "大学物理"
+						}
+					]
+				},
+				{
+					"title": "进阶知识",
+					"data": [
+						{
+							"title": "线性代数"
+						},
+						{
+							"title": "离散数学"
+						}
+					]
+				},
+				{
+					"title": "专业基础",
+					"data": [
+						{
+							"title": "数据结构"
+						},
+						{
+							"title": "编译原理"
+						}
+					]
+				},
+				{
+					"title": "研究方向",
+					"data": [
+						{
+							"title": "人工智能"
+						},
+						{
+							"title": "数据挖掘"
+						}
+					]
+				}
+			]
+		}
+    </string>
 </resources>

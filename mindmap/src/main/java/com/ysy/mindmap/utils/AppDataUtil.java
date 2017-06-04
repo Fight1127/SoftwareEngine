@@ -43,6 +43,11 @@ public class AppDataUtil {
         return sp.getString(key, "");
     }
 
+    public String readStringData(String key, String defaultValue) {
+        SharedPreferences sp = this.context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        return sp.getString(key, defaultValue);
+    }
+
     public int readIntData(String key) {
         SharedPreferences sp = this.context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         return sp.getInt(key, -1);
@@ -50,7 +55,7 @@ public class AppDataUtil {
 
     public long readLongData(String key) {
         SharedPreferences sp = this.context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        return sp.getLong(key, -1);
+        return sp.getLong(key, -1L);
     }
 
     public void clearAllDatas() {

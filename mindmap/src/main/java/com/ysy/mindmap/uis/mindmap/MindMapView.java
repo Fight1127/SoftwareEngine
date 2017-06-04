@@ -34,25 +34,24 @@ public class MindMapView extends ZoomView {
     private BulletManager bulletManager;
     private boolean isRootPositionInitialized;
 
+    public void updateMindMap(MindMapItem rootItem) {
+        mindMapRoot = rootItem;
+        Bullet rootBullet = getBulletManager().getOrCreateBullet(mindMapRoot);
+        setBulletRoot(rootBullet);
+        this.invalidate();
+    }
+
+    public MindMapItem getMindMapRoot() {
+        return mindMapRoot;
+    }
+
     private void generateMap() {
-        mindMapRoot =
-                new MindMapItem("计算机科学",
-                        new MindMapItem("基础理论",
-                                new MindMapItem("高等数学"),
-                                new MindMapItem("大学物理")),
-                        new MindMapItem("专业知识",
-                                new MindMapItem("数据结构"),
-                                new MindMapItem("编译原理")),
-                        new MindMapItem("研究方向",
-                                new MindMapItem("移动互联"),
-                                new MindMapItem("人工智能"))
-                );
+        mindMapRoot = new MindMapItem("加载中…");
     }
 
     public MindMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
         generateMap();
-
         Bullet rootBullet = getBulletManager().getOrCreateBullet(mindMapRoot);
         setBulletRoot(rootBullet);
     }
@@ -82,7 +81,6 @@ public class MindMapView extends ZoomView {
     @Override
     protected void onDraw(Canvas canvas) {
         prepareCanvasZoom(canvas);
-
         getBulletRoot().updateLayout();
 
         handleMovementAnimations(1000);
@@ -92,7 +90,6 @@ public class MindMapView extends ZoomView {
         if (moveBullet != null) {
             moveBullet.renderThisItem(canvas);
         }
-
         super.onDraw(canvas);
     }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -21,21 +22,25 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ysy.mindmap.R;
 import com.ysy.mindmap.bases.BaseMVPActivity;
+import com.ysy.mindmap.bases.GlobalConstant;
 import com.ysy.mindmap.bases.IUI;
 import com.ysy.mindmap.interfaces.IMainUI;
 import com.ysy.mindmap.models.MindMapItem;
 import com.ysy.mindmap.models.datas.DataUser;
 import com.ysy.mindmap.presenters.MainPresenter;
+import com.ysy.mindmap.uis.manage.TeamManageActivity;
+import com.ysy.mindmap.uis.manage.UserMapManageActivity;
 import com.ysy.mindmap.uis.mindmap.MindMapEditMode;
 import com.ysy.mindmap.uis.mindmap.MindMapItemActionRequestListener;
 import com.ysy.mindmap.uis.mindmap.MindMapView;
 import com.ysy.mindmap.uis.mindmap.OnSelectedBulletChangeListener;
 import com.ysy.mindmap.uis.mindmap.components.Bullet;
+import com.ysy.mindmap.utils.AppDataUtil;
+import com.ysy.mindmap.utils.JsonUtil;
 import com.ysy.mindmap.utils.ToastUtil;
 
 public class MainActivity extends BaseMVPActivity<MainPresenter>
@@ -45,7 +50,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
     private static final String MAIN_UID = "main_uid";
 
     private MindMapView mindMapView;
-    private LinearLayout mActionLayout;
+    private View mActionLayout;
     private EditText mContentEdt;
     private MindMapEditMode currentEditMode;
 
@@ -55,6 +60,24 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
 
     private DataUser user = null;
     private long uid = -1;
+
+    private MindMapItem rootItem;
+    private Handler mHandler;
+    private Runnable mInitMapRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mindMapView != null) {
+                mindMapView.updateMindMap(rootItem);
+            }
+        }
+    };
+
+    private Runnable mSaveSuccessRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new ToastUtil(MainActivity.this).showToastShort("成功保存到本地");
+        }
+    };
 
     @Override
     public Activity getActivity() {
@@ -86,15 +109,34 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
     @Override
     protected void onCreateExecute(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
+        mHandler = new Handler();
         initViews();
         initDatas();
+    }
+
+    private void initMapFromSP(long uid) {
+        AppDataUtil aDU = new AppDataUtil(this);
+        final String mapJson = aDU.readStringData(GlobalConstant.SP_SAVE_MAP_PREF + (uid + ""), getString(R.string.map_json));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                rootItem = JsonUtil.jsonToMindMap(mapJson);
+                mHandler.post(mInitMapRunnable);
+            }
+        }).start();
     }
 
     private void initDatas() {
         user = (DataUser) getIntent().getSerializableExtra(MAIN_USER);
         uid = getIntent().getLongExtra(MAIN_UID, -1);
-        if (uid == -1 && user != null)
+        if (uid == -1 && user != null) {
             uid = user.getUid();
+            initMapFromSP(uid);
+            if (mNicknameTv != null)
+                mNicknameTv.setText(user.getNickname());
+            if (mIntroTv != null)
+                mIntroTv.setText(user.getIntro());
+        }
         if (user == null)
             getPresenter().queryUser(uid);
     }
@@ -129,7 +171,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         mindMapView.setOnSelectedBulletChangeListener(selectedBulletChangeListener);
         mindMapView.setMindMapActionListener(mindMapItemActionRequestListener);
 
-        mActionLayout = (LinearLayout) findViewById(R.id.action_layout);
+        mActionLayout = findViewById(R.id.action_layout);
         initContentEdt();
     }
 
@@ -221,7 +263,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 
@@ -234,14 +276,26 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mindMapView != null) {
+                        AppDataUtil aDU = new AppDataUtil(MainActivity.this);
+                        aDU.saveData(GlobalConstant.SP_SAVE_MAP_PREF + (uid + ""),
+                                JsonUtil.mindMapToJson(mindMapView.getMindMapRoot()));
+                        mHandler.post(mSaveSuccessRunnable);
+                    }
+                }
+            }).start();
+
             return true;
+        } else if (id == R.id.action_commit) {
+
+        } else if (id == R.id.action_pull) {
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -253,18 +307,26 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_draw_board) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            if (mindMapView != null)
+                mindMapView.invalidate();
+        } else if (id == R.id.nav_user_map) {
+            if (user != null)
+                UserMapManageActivity.launch(this, user);
+        } else if (id == R.id.nav_team_manage) {
+            if (user != null)
+                TeamManageActivity.launch(this, user);
+        } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_exit) {
+            AppDataUtil aDU = new AppDataUtil(this);
+            aDU.saveData(GlobalConstant.SP_UID, -1L);
+            LoginActivity.launch(this);
+            finish();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -324,6 +386,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter>
     @Override
     public void onQueryUserSuccess(DataUser user) {
         this.user = user;
+        initMapFromSP(user.getUid());
         if (mNicknameTv != null && !TextUtils.isEmpty(user.getNickname()))
             mNicknameTv.setText(user.getNickname());
         if (mIntroTv != null && !TextUtils.isEmpty(user.getIntro()))

@@ -47,7 +47,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterUI> {
 
                 @Override
                 public void onFail(int errorCode) {
-                    new ToastUtil(getContext()).showToastShort(SQLErrorConstant.getErrorMsg(errorCode));
+                    getUI().onRegisterFail(SQLErrorConstant.getErrorMsg(errorCode));
                 }
             });
         } else {
