@@ -53,6 +53,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
     private View mActionLayout;
     private EditText mContentEdt;
     private MindMapEditMode currentEditMode;
+    private View mHistoryCard;
+    private EditText mHistoryEdt;
 
     private TextView mNicknameTv;
     private TextView mIntroTv;
@@ -63,6 +65,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
 
     private long teamMapId = -1;
     private String mapJson;
+
+    private String lastHistory = "";
+    private String currentHistory = "";
 
     private MindMapItem rootItem;
     private Handler mHandler;
@@ -206,6 +211,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
         mindMapView.setMindMapActionListener(mindMapItemActionRequestListener);
 
         mActionLayout = findViewById(R.id.action_layout);
+        mHistoryCard = findViewById(R.id.history_edt_card);
+        mHistoryEdt = (EditText) findViewById(R.id.history_edt);
         initContentEdt();
     }
 
@@ -222,6 +229,11 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
                         hideKeyboard();
                         MindMapItem selectedItem = mindMapView.getSelectedMindMapItem();
                         if (currentEditMode == MindMapEditMode.EDIT) {
+                            currentHistory = mContentEdt.getText().toString();
+                            if (!TextUtils.isEmpty(selectedItem.getHistory()))
+                                selectedItem.setHistory(selectedItem.getHistory() + "\n" + lastHistory + " -> " + currentHistory + "\n");
+                            else
+                                selectedItem.setHistory(selectedItem.getHistory() + lastHistory + " -> " + currentHistory + "\n");
                             currentEditMode = MindMapEditMode.UNDEFINED;
                             mContentEdt.setVisibility(View.INVISIBLE);
                             return true; // consume.
@@ -245,10 +257,38 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
 
     public void onEditClicked(View v) {
         if (mindMapView.getSelectedMindMapItem() != null) {
+            lastHistory = mindMapView.getSelectedMindMapItem().getText();
             currentEditMode = MindMapEditMode.EDIT;
-            mContentEdt.setText(mindMapView.getSelectedMindMapItem().getText());
+            mContentEdt.setText(lastHistory);
             mContentEdt.setVisibility(View.VISIBLE);
             mContentEdt.requestFocus();
+        }
+    }
+
+    public void onShowHistoryClicked(View v) {
+        if (mindMapView.getSelectedMindMapItem() != null) {
+            if (mHistoryCard.getVisibility() == View.GONE) {
+                mHistoryCard.setVisibility(View.VISIBLE);
+                mHistoryEdt.setText(mindMapView.getSelectedMindMapItem().getHistory());
+            } else {
+                mHistoryEdt.setText("");
+                mHistoryCard.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    public void onLockClicked(View v) {
+        MindMapItem mapItem = mindMapView.getSelectedMindMapItem();
+        if (mapItem != null) {
+            if (mapItem.getIsLocked() == 1) { // 如果锁定，点击后就解锁
+                mapItem.setIsLocked((byte) 0);
+                mapItem.setLockedBy(-1);
+                new ToastUtil(this).showToastShort("已解锁");
+            } else {
+                mapItem.setIsLocked((byte) 1);
+                mapItem.setLockedBy(uid);
+                new ToastUtil(this).showToastShort("已加锁");
+            }
         }
     }
 
@@ -409,9 +449,17 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
     private OnSelectedBulletChangeListener selectedBulletChangeListener = new OnSelectedBulletChangeListener() {
         public void onSelectedBulletChanged(View v, Bullet selectedBullet) {
             if (selectedBullet != null) {
+                MindMapItem mapItem = mindMapView.getSelectedMindMapItem();
+                if (mapItem.getLockedBy() > 0 && mapItem.getLockedBy() != uid) {
+                    mActionLayout.setVisibility(View.INVISIBLE);
+                    mContentEdt.setVisibility(View.INVISIBLE);
+                    new ToastUtil(MainActivity.this).showToastShort("已被他人上锁，无法修改");
+                    return;
+                }
                 mActionLayout.setVisibility(View.VISIBLE);
                 mContentEdt.setVisibility(View.INVISIBLE);
             } else {
+                mHistoryCard.setVisibility(View.GONE);
                 mActionLayout.setVisibility(View.INVISIBLE);
                 mContentEdt.setVisibility(View.INVISIBLE);
             }
@@ -465,8 +513,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements IMai
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-//                    rootItem = JsonUtil.jsonToMindMap(json);
-
+                    rootItem = JsonUtil.jsonToMindMap(json);
                     mHandler.post(mInitMapRunnable);
                 }
             }).start();

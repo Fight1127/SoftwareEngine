@@ -33,53 +33,95 @@
     <string name="map_json">
 		{
 			"title": "计算机科学",
+			"is_locked": 0,
+			"locked_by": -1,
+			"history": "同步历史",
 			"data": [
 				{
 					"title": "基础知识",
+					"is_locked": 0,
+					"locked_by": -1,
+					"history": "同步历史",
 					"data": [
 						{
 							"title": "高等数学",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史",
 							"data":[
 								{
-									"title": "第一章"
+									"title": "第一章",
+									"is_locked": 0,
+									"locked_by": -1,
+									"history": "同步历史"
 								}
 							]
 						},
 						{
-							"title": "大学物理"
+							"title": "大学物理",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						}
 					]
 				},
 				{
 					"title": "进阶知识",
+					"is_locked": 0,
+					"locked_by": -1,
+					"history": "同步历史",
 					"data": [
 						{
-							"title": "线性代数"
+							"title": "线性代数",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						},
 						{
-							"title": "离散数学"
+							"title": "离散数学",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						}
 					]
 				},
 				{
 					"title": "专业基础",
+					"is_locked": 0,
+					"locked_by": -1,
+					"history": "同步历史",
 					"data": [
 						{
-							"title": "数据结构"
+							"title": "数据结构",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						},
 						{
-							"title": "编译原理"
+							"title": "编译原理",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						}
 					]
 				},
 				{
 					"title": "研究方向",
+					"is_locked": 0,
+					"locked_by": -1,
+					"history": "同步历史",
 					"data": [
 						{
-							"title": "人工智能"
+							"title": "人工智能",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						},
 						{
-							"title": "数据挖掘"
+							"title": "数据挖掘",
+							"is_locked": 0,
+							"locked_by": -1,
+							"history": "同步历史"
 						}
 					]
 				}

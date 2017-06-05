@@ -1,8 +1,9 @@
 package com.ysy.mindmap.models;
 
+import android.text.TextUtils;
+
 import com.ysy.mindmap.utils.SuspendableObservable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,19 @@ public class MindMapItem extends SuspendableObservable {
     public static final int UPDATED_CHILDREN = 2;
     public static final int UPDATED_DELETED = 3;
     private MindMapItem parent;
-    private String text;
+    private String text = "";
     private List<MindMapItem> children;
-    private String history;
+    private byte isLocked = 0;
+    private long lockedBy = -1;
+    private String history = "";
 
-    public MindMapItem(String title, MindMapItem... mindMapItems) {
+    public MindMapItem(String title, byte isLocked, long lockedBy, String history,
+                       MindMapItem... mindMapItems) {
         children = new ArrayList<>();
         setText(title);
+        setLockedBy(lockedBy);
+        setIsLocked(isLocked);
+        setHistory(history);
         if (mindMapItems != null) {
             for (MindMapItem item : mindMapItems) {
                 item.setParent(this);
@@ -27,15 +34,27 @@ public class MindMapItem extends SuspendableObservable {
         }
     }
 
-    public MindMapItem(String title, List<MindMapItem> mindMapItems) {
+    public MindMapItem(String title, byte isLocked, long lockedBy, String history,
+                       List<MindMapItem> mindMapItems) {
         children = new ArrayList<>();
         setText(title);
+        setLockedBy(lockedBy);
+        setIsLocked(isLocked);
+        setHistory(history);
         if (mindMapItems != null) {
             for (MindMapItem item : mindMapItems) {
                 item.setParent(this);
                 children.add(item);
             }
         }
+    }
+
+    public MindMapItem(String title, byte isLocked, long lockedBy, String history) {
+        children = new ArrayList<>();
+        setText(title);
+        setLockedBy(lockedBy);
+        setIsLocked(isLocked);
+        setHistory(history);
     }
 
     public MindMapItem(String title) {
@@ -122,6 +141,8 @@ public class MindMapItem extends SuspendableObservable {
     }
 
     public void setText(String text) {
+        if (TextUtils.isEmpty(text))
+            text = "";
         this.text = text;
         setChangeAndNotifyObservers(UPDATED_TEXT);
     }
@@ -181,6 +202,31 @@ public class MindMapItem extends SuspendableObservable {
         }
         itemOne.resumeBinding();
         itemTwo.resumeBinding();
+    }
+
+    public void setLockedBy(long lockedBy) {
+        this.lockedBy = lockedBy;
+    }
+
+    public void setIsLocked(byte isLocked) {
+        this.isLocked = isLocked;
+    }
+
+    public byte getIsLocked() {
+        return isLocked;
+    }
+
+    public long getLockedBy() {
+        return lockedBy;
+    }
+
+    public void setHistory(String history) {
+        history = (history == null ? "" : history);
+        this.history = history;
+    }
+
+    public String getHistory() {
+        return history;
     }
 
     @Override
